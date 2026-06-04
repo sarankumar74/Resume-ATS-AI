@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
+import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
 import { Mail, Phone, Eye, EyeOff } from "lucide-react";
@@ -21,10 +21,10 @@ export default function Login() {
   }, [user, navigate]);
 
   const handleGoogle = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
+    const { error } = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: `${window.location.origin}/dashboard`,
     });
-    if (result.error) toast.error(result.error.message ?? "Google sign-in failed");
+    if (error) toast.error(error.message ?? "Google sign-in failed");
   };
 
   return (
