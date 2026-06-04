@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { CheckCircle2, AlertCircle, Sparkles, Target, ArrowLeft } from "lucide-react";
+import { CheckCircle2, AlertCircle, Sparkles, Target, ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
+import jsPDF from "jspdf";
 
 type Feedback = {
   summary?: string;
@@ -39,6 +40,52 @@ export default function Report() {
 
   const fb = (scan.feedback ?? {}) as Feedback;
 
+  const downloadPdf = () => {
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 40;
+    let y = margin;
+    const line = (text: string, size = 11, bold = false) => {
+      doc.setFont("helvetica", bold ? "bold" : "normal");
+      doc.setFontSize(size);
+      const lines = doc.splitTextToSize(text, pageW - margin * 2);
+      for (const l of lines) {
+        if (y > pageH - margin) { doc.addPage(); y = margin; }
+        doc.text(l, margin, y);
+        y += size + 4;
+      }
+    };
+    const heading = (t: string) => { y += 6; line(t, 14, true); y += 2; };
+    const list = (title: string, items?: string[], numbered = false) => {
+      if (!items || items.length === 0) return;
+      heading(title);
+      items.forEach((it, i) => line(`${numbered ? `${i + 1}.` : "•"} ${it}`));
+    };
+
+    line(scan.title, 18, true);
+    line(new Date(scan.created_at).toLocaleString(), 10);
+    y += 6;
+    heading("Scores");
+    line(`ATS Score: ${scan.ats_score ?? 0}/100`);
+    line(`JD Match: ${scan.jd_match_score ?? 0}/100`);
+    line(`Grammar: ${scan.grammar_score ?? 0}/100`);
+    line(`Formatting: ${scan.formatting_score ?? 0}/100`);
+    if (fb.summary) { heading("Summary"); line(fb.summary); }
+    list("Strengths", fb.strengths);
+    list("Weaknesses", fb.weaknesses);
+    list("Missing keywords", fb.missing_keywords);
+    list("Missing skills", fb.missing_skills);
+    list("Grammar fixes", fb.grammar_issues);
+    list("STAR format suggestions", fb.star_suggestions);
+    list("Stronger action verbs", fb.action_verb_suggestions);
+    list("Formatting suggestions", fb.formatting_suggestions);
+    list("Improvement roadmap", fb.improvement_roadmap, true);
+
+    const safe = (scan.title || "resume-report").replace(/[^a-z0-9-_]+/gi, "_");
+    doc.save(`${safe}.pdf`);
+  };
+
   return (
     <div className="space-y-6">
       <SEO title={`${scan.title} — ResumeIQ Report`} canonical={`/report/${id}`} />
@@ -51,7 +98,10 @@ export default function Report() {
           <h1 className="font-display text-3xl font-bold">{scan.title}</h1>
           <p className="text-sm text-muted-foreground">{new Date(scan.created_at).toLocaleString()}</p>
         </div>
-        <Link to="/upload"><Button variant="hero"><Sparkles className="h-4 w-4" /> New scan</Button></Link>
+        <div className="flex gap-2">
+          <Button variant="glass" onClick={downloadPdf}><Download className="h-4 w-4" /> Download PDF</Button>
+          <Link to="/upload"><Button variant="hero"><Sparkles className="h-4 w-4" /> New scan</Button></Link>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
