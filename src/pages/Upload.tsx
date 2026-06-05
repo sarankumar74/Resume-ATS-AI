@@ -92,11 +92,12 @@ export default function Upload() {
       <div className="glass rounded-2xl p-4 sm:p-6 space-y-4">
         <div className="space-y-2">
           <Label htmlFor="title">Scan title (optional)</Label>
-          <Input id="title" placeholder="e.g. Frontend Engineer at Acme" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input id="title" className="h-12 text-base" placeholder="e.g. Frontend Engineer at Acme" value={title} onChange={(e) => setTitle(e.target.value)} />
         </div>
 
         <div
-          className="rounded-xl border-2 border-dashed border-border p-4 text-center hover:border-primary/50 transition-colors sm:p-6"
+          className="rounded-xl border-2 border-dashed border-border p-4 text-center hover:border-primary/50 hover:bg-muted/20 transition-colors sm:p-6 cursor-pointer"
+          onClick={() => document.getElementById('resume-upload')?.click()}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
             e.preventDefault();
@@ -104,14 +105,16 @@ export default function Upload() {
             if (f) handleFile(f);
           }}
         >
-          <FileText className="mx-auto h-7 w-7 text-primary-glow sm:h-8 sm:w-8" />
-          <p className="mt-2 text-xs sm:text-sm">Drop a PDF, DOCX, or TXT resume here</p>
+          <FileText className="mx-auto h-7 w-7 text-primary-glow sm:h-8 sm:w-8 pointer-events-none" />
+          <p className="mt-2 text-xs sm:text-sm pointer-events-none">Drop a PDF, DOCX, or TXT resume here</p>
 
           <input
+            id="resume-upload"
             type="file"
             accept=".txt,.md,text/plain,.pdf,.docx"
-            className="mt-3 mx-auto block max-w-full text-xs file:mr-3 file:rounded-md file:border-0 file:bg-gradient-primary file:px-3 file:py-1.5 file:text-primary-foreground"
+            className="mt-3 mx-auto block max-w-full text-xs file:mr-3 file:rounded-md file:border-0 file:bg-gradient-primary file:px-3 file:py-1.5 file:text-primary-foreground file:cursor-pointer"
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
+            onClick={(e) => e.stopPropagation()}
           />
         </div>
 

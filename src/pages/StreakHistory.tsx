@@ -126,37 +126,29 @@ export default function StreakHistory() {
           <p className="mt-3 text-sm text-muted-foreground">No activity yet. Run your first scan to start a streak.</p>
         ) : (
           <ol className="mt-4 space-y-2">
-            {timeline.map((d) => (
+            {timeline.filter(d => d.active).map((d) => (
               <li
                 key={d.date}
-                className={`flex flex-wrap items-center justify-between gap-3 rounded-xl border p-3 ${
-                  d.active ? "border-primary/30 bg-primary/5" : "border-destructive/20 bg-destructive/5"
-                }`}
+                className={`flex flex-wrap items-center justify-between gap-3 rounded-xl border p-3 border-primary/30 bg-primary/5`}
               >
                 <div className="flex items-center gap-3">
-                  {d.active ? (
-                    <CheckCircle2 className="h-5 w-5 text-primary-glow" />
-                  ) : (
-                    <XCircle className="h-5 w-5 text-destructive/70" />
-                  )}
+                  <CheckCircle2 className="h-5 w-5 text-primary-glow" />
                   <div>
                     <div className="text-sm font-semibold">
                       {new Date(d.date).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" })}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {d.active ? `${d.scans.length} scan${d.scans.length > 1 ? "s" : ""}` : "Streak break — no activity"}
+                      {d.scans.length} scan{d.scans.length > 1 ? "s" : ""}
                     </div>
                   </div>
                 </div>
-                {d.active && (
-                  <div className="flex flex-wrap gap-2">
-                    {d.scans.map((s) => (
-                      <Link key={s.id} to={`/report/${s.id}`} className="rounded-md bg-background/60 px-2.5 py-1 text-xs hover:bg-accent/20">
-                        {s.title} {typeof s.ats_score === "number" ? `· ${s.ats_score}` : ""}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <div className="flex flex-wrap gap-2">
+                  {d.scans.map((s) => (
+                    <Link key={s.id} to={`/report/${s.id}`} className="rounded-md bg-background/60 px-2.5 py-1 text-xs hover:bg-accent/20">
+                      {s.title} {typeof s.ats_score === "number" ? `· ${s.ats_score}` : ""}
+                    </Link>
+                  ))}
+                </div>
               </li>
             ))}
           </ol>

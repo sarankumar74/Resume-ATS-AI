@@ -36,7 +36,7 @@ export default function Dashboard() {
           <h1 className="font-display text-2xl font-bold sm:text-3xl truncate">
             Welcome back{(() => {
               const name = (user?.user_metadata?.username as string) || (user?.user_metadata?.full_name as string) || (user?.user_metadata?.name as string) || (user?.email ? user.email.split("@")[0] : "");
-              return name ? `, ${name}` : "";
+              return name ? `, ${name} 👋` : " 👋";
             })()}
           </h1>
           <p className="text-sm text-muted-foreground">Your AI resume command center.</p>
