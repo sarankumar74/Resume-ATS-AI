@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Upload, FileText, TrendingUp, Target } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { ReferralCard } from "@/components/referral-card";
+import { StreakCard } from "@/components/streak-card";
 import { SEO } from "@/components/SEO";
 
 export default function Dashboard() {
@@ -50,6 +51,7 @@ export default function Dashboard() {
         <Stat icon={Target} label="Best ATS" value={best} suffix="/100" />
       </div>
 
+      <StreakCard />
       <ReferralCard />
 
       <div className="glass rounded-2xl p-6">

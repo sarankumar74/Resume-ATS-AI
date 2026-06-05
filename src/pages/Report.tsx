@@ -5,6 +5,7 @@ import { CheckCircle2, AlertCircle, Sparkles, Target, ArrowLeft, Download } from
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
 import jsPDF from "jspdf";
+import { TestimonialDialog } from "@/components/testimonial-dialog";
 
 type Feedback = {
   summary?: string;
@@ -89,6 +90,7 @@ export default function Report() {
   return (
     <div className="space-y-6">
       <SEO title={`${scan.title} — ResumeIQ Report`} canonical={`/report/${id}`} />
+      {id && <TestimonialDialog scanId={id} />}
       <Link to="/history" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> Back to history
       </Link>

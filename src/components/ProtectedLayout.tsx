@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet, NavLink, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
-import { LayoutDashboard, Upload, History, Settings, LogOut, ScanLine, Menu, X } from "lucide-react";
+import { useIsAdmin } from "@/lib/use-is-admin";
+import { LayoutDashboard, Upload, History, Settings, LogOut, ScanLine, Menu, X, Flame, ShieldCheck } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -9,11 +10,13 @@ const nav = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/upload", icon: Upload, label: "New Scan" },
   { to: "/history", icon: History, label: "History" },
+  { to: "/streak", icon: Flame, label: "Streak" },
   { to: "/settings", icon: Settings, label: "Settings" },
 ] as const;
 
 export function ProtectedLayout() {
   const { user, loading, signOut } = useAuth();
+  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -45,6 +48,11 @@ export function ProtectedLayout() {
             <n.icon className="h-4 w-4" /> {n.label}
           </NavLink>
         ))}
+        {isAdmin && (
+          <NavLink to="/admin/testimonials" onClick={onItemClick} className={linkClass}>
+            <ShieldCheck className="h-4 w-4" /> Moderation
+          </NavLink>
+        )}
       </nav>
       <button
         onClick={() => {

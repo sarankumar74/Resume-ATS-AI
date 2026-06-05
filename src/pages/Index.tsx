@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { SEO } from "@/components/SEO";
+import { TestimonialsSection } from "@/components/testimonials-section";
 
 const SITE_TITLE = "ResumeIQ — Beat the ATS, land more interviews";
 const SITE_DESC =
@@ -140,6 +141,8 @@ export default function Index() {
           ))}
         </div>
       </section>
+
+      <TestimonialsSection />
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="glass rounded-2xl p-8 text-center shadow-glow sm:rounded-3xl sm:p-12">

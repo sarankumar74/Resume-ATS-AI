@@ -8,6 +8,8 @@ import Upload from "@/pages/Upload";
 import History from "@/pages/History";
 import Report from "@/pages/Report";
 import Settings from "@/pages/Settings";
+import StreakHistory from "@/pages/StreakHistory";
+import AdminTestimonials from "@/pages/AdminTestimonials";
 import NotFound from "@/pages/NotFound";
 import { ProtectedLayout } from "@/components/ProtectedLayout";
 
@@ -23,8 +25,10 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/history" element={<History />} />
+        <Route path="/streak" element={<StreakHistory />} />
         <Route path="/report/:id" element={<Report />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/admin/testimonials" element={<AdminTestimonials />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
