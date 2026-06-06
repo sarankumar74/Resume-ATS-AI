@@ -18,6 +18,8 @@ export function TestimonialDialog({ scanId }: { scanId: string }) {
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const [profileAvatar, setProfileAvatar] = useState<string | null>(null);
+
   useEffect(() => {
     if (!user || !scanId) return;
     const key = `tm_prompted_${scanId}`;
@@ -30,8 +32,15 @@ export function TestimonialDialog({ scanId }: { scanId: string }) {
         .limit(1)
         .maybeSingle();
       if (!data) {
+        const { data: prof } = await supabase
+          .from("profiles")
+          .select("username, avatar_url")
+          .eq("id", user.id)
+          .maybeSingle();
+        setProfileAvatar(prof?.avatar_url ?? null);
         setName(
-          (user.user_metadata?.username as string) ||
+          prof?.username ||
+            (user.user_metadata?.username as string) ||
             (user.user_metadata?.full_name as string) ||
             (user.email ? user.email.split("@")[0] : "")
         );
@@ -47,13 +56,15 @@ export function TestimonialDialog({ scanId }: { scanId: string }) {
     if (!name.trim()) return toast.error("Please add a display name.");
     setBusy(true);
     try {
+      const avatarUrl =
+        profileAvatar ?? (user.user_metadata?.avatar_url as string) ?? null;
       const { error } = await (supabase as any).from("testimonials").insert({
         user_id: user.id,
         scan_id: scanId,
         display_name: name.trim(),
         rating,
         message: message.trim(),
-        avatar_url: (user.user_metadata?.avatar_url as string) ?? null,
+        avatar_url: avatarUrl,
       });
       if (error) throw error;
       toast.success("Thanks for sharing your feedback!");

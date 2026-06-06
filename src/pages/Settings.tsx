@@ -1,5 +1,6 @@
 import { useAuth } from "@/lib/auth";
 import { SEO } from "@/components/SEO";
+import { AvatarUploader } from "@/components/avatar-uploader";
 
 export default function Settings() {
   const { user } = useAuth();
@@ -16,6 +17,13 @@ export default function Settings() {
         <h1 className="font-display text-3xl font-bold">Settings</h1>
         <p className="text-sm text-muted-foreground">Manage your account.</p>
       </div>
+
+      <div className="glass rounded-2xl p-6 space-y-4">
+        <div className="text-xs uppercase tracking-wider text-muted-foreground">Profile picture</div>
+        <AvatarUploader size={96} />
+        <p className="text-xs text-muted-foreground">PNG or JPG, up to 5MB.</p>
+      </div>
+
       <div className="glass rounded-2xl p-6 space-y-3">
         <div>
           <div className="text-xs text-muted-foreground uppercase tracking-wider">Username</div>
@@ -30,7 +38,6 @@ export default function Settings() {
           <div className="mt-1 font-mono text-xs text-muted-foreground">{user?.id}</div>
         </div>
       </div>
-      <p className="text-xs text-muted-foreground">More settings coming soon — notification preferences, password change, subscription.</p>
     </div>
   );
 }

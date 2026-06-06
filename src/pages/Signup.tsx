@@ -3,13 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
-import { Mail, Phone, Eye, EyeOff } from "lucide-react";
-import { AuthShell, PhoneAuthForm } from "@/components/auth-shared";
+import { Eye, EyeOff } from "lucide-react";
+import { AuthShell } from "@/components/auth-shared";
 import { SEO } from "@/components/SEO";
 
 export default function Signup() {
@@ -36,18 +35,7 @@ export default function Signup() {
         canonical="/signup"
       />
       <AuthShell title="Create your account" subtitle="Start scoring your resume in seconds.">
-        <Tabs defaultValue="email" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="email"><Mail className="mr-1.5 h-4 w-4" /> Email</TabsTrigger>
-            <TabsTrigger value="phone"><Phone className="mr-1.5 h-4 w-4" /> Phone</TabsTrigger>
-          </TabsList>
-          <TabsContent value="email" className="mt-5">
-            <EmailSignupForm />
-          </TabsContent>
-          <TabsContent value="phone" className="mt-5">
-            <PhoneAuthForm mode="signup" />
-          </TabsContent>
-        </Tabs>
+        <EmailSignupForm />
         <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> OR <div className="h-px flex-1 bg-border" />
         </div>
