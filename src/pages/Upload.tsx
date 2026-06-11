@@ -141,7 +141,7 @@ export default function Upload() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="jd" className="flex items-center gap-2"><Briefcase className="h-4 w-4" /> Job description (optional but recommended)</Label>
+          <Label htmlFor="jd" className="flex items-center gap-2"><Briefcase className="h-4 w-4" /> Job description (required, min 80 characters)</Label>
           <Textarea
             id="jd"
             ref={jdRef}
@@ -154,7 +154,7 @@ export default function Upload() {
         </div>
       </div>
 
-      <Button type="submit" variant="hero" size="lg" disabled={busy} className="w-full h-12 text-base">
+      <Button type="submit" variant="hero" size="lg" disabled={busy || jdText.trim().length < 80} className="w-full h-12 text-base">
         {busy ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyzing with AI…</> : <><Sparkles className="h-4 w-4" /> Run AI analysis</>}
       </Button>
     </form>
