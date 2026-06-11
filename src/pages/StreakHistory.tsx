@@ -92,7 +92,7 @@ export default function StreakHistory() {
           <h1 className="font-display text-3xl font-bold sm:text-4xl">Streak history</h1>
           <p className="mt-1 text-sm text-muted-foreground">Every day you uploaded or analyzed a resume.</p>
         </div>
-        <Link to="/upload"><Button variant="hero">New scan</Button></Link>
+        <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero">New scan</Button></Link>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-3">

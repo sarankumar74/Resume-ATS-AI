@@ -54,9 +54,7 @@ export default function Index() {
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 transition-transform hover:scale-105">
-            <div className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-primary shadow-glow sm:h-9 sm:w-9">
-              <ScanLine className="h-4 w-4 text-primary-foreground sm:h-5 sm:w-5" />
-            </div>
+            <img src="/logo.png" alt="ResumeIQ" className="h-8 w-8 rounded-full sm:h-9 sm:w-9" />
             <span className="font-display text-lg font-bold tracking-tight sm:text-xl">
               Resume<span className="text-gradient">IQ</span>
             </span>
@@ -462,7 +460,7 @@ function FinalCTASection() {
           <h2 className="text-4xl font-bold sm:text-5xl">Start Improving Your Resume Today</h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Upload your resume and discover exactly why recruiters aren't seeing it.</p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/upload"><Button variant="hero" size="lg" className="h-14 w-full sm:w-auto px-8 text-lg shadow-glow">Start Free ATS Scan</Button></Link>
+            <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero" size="lg" className="h-14 w-full sm:w-auto px-8 text-lg shadow-glow">Start Free ATS Scan</Button></Link>
             <Link to="/signup"><Button variant="outline" size="lg" className="h-14 w-full sm:w-auto px-8 text-lg">Create Free Account</Button></Link>
           </div>
         </div>
@@ -477,7 +475,7 @@ function Footer() {
     <footer className="border-t border-border bg-card/20 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2">
-          <ScanLine className="h-5 w-5 text-primary" />
+          <img src="/logo.png" alt="ResumeIQ" className="h-6 w-6 rounded-full" />
           <span className="font-display font-bold">ResumeIQ</span>
         </div>
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">

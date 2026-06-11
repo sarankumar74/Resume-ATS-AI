@@ -102,7 +102,7 @@ export default function Report() {
         </div>
         <div className="flex gap-2">
           <Button variant="glass" onClick={downloadPdf}><Download className="h-4 w-4" /> Download PDF</Button>
-          <Link to="/upload"><Button variant="hero"><Sparkles className="h-4 w-4" /> New scan</Button></Link>
+          <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero"><Sparkles className="h-4 w-4" /> New scan</Button></Link>
         </div>
       </div>
 

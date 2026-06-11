@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, NavLink, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { useIsAdmin } from "@/lib/use-is-admin";
-import { LayoutDashboard, Upload, History, Settings, LogOut, ScanLine, Menu, X, Flame, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Upload, History, Settings, LogOut, Menu, X, Flame, ShieldCheck } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -43,11 +43,14 @@ export function ProtectedLayout() {
   const NavList = ({ onItemClick }: { onItemClick?: () => void }) => (
     <>
       <nav className="mt-4 space-y-1">
-        {nav.map((n) => (
-          <NavLink key={n.to} to={n.to} onClick={onItemClick} className={linkClass}>
-            <n.icon className="h-4 w-4" /> {n.label}
-          </NavLink>
-        ))}
+        {nav.map((n) => {
+          const to = n.to === "/upload" ? { pathname: "/upload", state: { focus: "jd" } } : n.to;
+          return (
+            <NavLink key={n.to} to={to} onClick={onItemClick} className={linkClass}>
+              <n.icon className="h-4 w-4" /> {n.label}
+            </NavLink>
+          );
+        })}
         {isAdmin && (
           <NavLink to="/admin/testimonials" onClick={onItemClick} className={linkClass}>
             <ShieldCheck className="h-4 w-4" /> Moderation
@@ -68,9 +71,7 @@ export function ProtectedLayout() {
 
   const Brand = () => (
     <Link to="/dashboard" className="flex items-center gap-2 px-1 py-1">
-      <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary shadow-glow">
-        <ScanLine className="h-4 w-4 text-primary-foreground" />
-      </div>
+      <img src="/logo.png" alt="ResumeIQ" className="h-9 w-9 rounded-full" />
       <span className="font-display text-lg font-bold">
         Resume<span className="text-gradient">IQ</span>
       </span>

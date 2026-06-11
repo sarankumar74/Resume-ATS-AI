@@ -5,16 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ScanLine } from "lucide-react";
+
 
 export function AuthShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
     <div className="grid min-h-screen place-items-center bg-hero p-6">
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-primary shadow-glow">
-            <ScanLine className="h-5 w-5 text-primary-foreground" />
-          </div>
+          <img src="/logo.png" alt="ResumeIQ" className="h-10 w-10 rounded-full" />
           <span className="font-display text-2xl font-bold">Resume<span className="text-gradient">IQ</span></span>
         </Link>
         <div className="glass rounded-2xl p-8 shadow-elegant">

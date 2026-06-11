@@ -26,7 +26,7 @@ export default function History() {
           <h1 className="font-display text-3xl font-bold">Resume history</h1>
           <p className="text-sm text-muted-foreground">All your past scans and their scores.</p>
         </div>
-        <Link to="/upload"><Button variant="hero"><Upload className="h-4 w-4" /> New scan</Button></Link>
+        <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero"><Upload className="h-4 w-4" /> New scan</Button></Link>
       </div>
 
       <div className="glass rounded-2xl p-2">

@@ -41,7 +41,7 @@ export default function Dashboard() {
           </h1>
           <p className="text-sm text-muted-foreground">Your AI resume command center.</p>
         </div>
-        <Link to="/upload"><Button variant="hero"><Upload className="h-4 w-4" /> New scan</Button></Link>
+        <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero"><Upload className="h-4 w-4" /> New scan</Button></Link>
       </div>
 
       <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
@@ -62,7 +62,7 @@ export default function Dashboard() {
         {list.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
             <p className="text-muted-foreground">No scans yet.</p>
-            <Link to="/upload"><Button variant="hero" className="mt-4">Run your first scan</Button></Link>
+            <Link to="/upload" state={{ focus: "jd" }}><Button variant="hero" className="mt-4">Run your first scan</Button></Link>
           </div>
         ) : (
           <div className="divide-y divide-border">

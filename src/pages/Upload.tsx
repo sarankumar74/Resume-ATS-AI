@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,14 @@ export default function Upload() {
   const [resumeText, setResumeText] = useState("");
   const [jdText, setJdText] = useState("");
   const [busy, setBusy] = useState(false);
+  const location = useLocation();
+  const jdRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if ((location.state as { focus?: string } | null)?.focus === "jd") {
+      jdRef.current?.focus();
+    }
+  }, [location.state]);
 
   const extractPdf = async (file: File): Promise<string> => {
     const pdfjs: any = await import("pdfjs-dist");
@@ -136,6 +144,7 @@ export default function Upload() {
           <Label htmlFor="jd" className="flex items-center gap-2"><Briefcase className="h-4 w-4" /> Job description (optional but recommended)</Label>
           <Textarea
             id="jd"
+            ref={jdRef}
             rows={6}
             placeholder="Paste the job description for JD matching…"
             value={jdText}
